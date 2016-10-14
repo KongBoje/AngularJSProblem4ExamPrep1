@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myControl as ctrl">
+    <head>
+        <title>Exam Prep Angular VS. Jquery</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <div id="tester">
+                Trying to access controller: {{ctrl.greeting}}
+                Test displayer: {{ctrl.popoverIsVisible}}
+            </div>
+            <br> <br>
+            <div>Add Your Table made with Angular here
+                <table class="table">
+                    <thead class="thead">
+                        <tr class="headtr">
+                            <td>ID</td>
+                            <td>Age</td>
+                            <td>Eye Color</td>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>Friends</td>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody" id="person-tbody" ng-repeat="member in ctrl.members">
+                    <td ng-bind="member.id"></td>
+                    <td ng-bind="member.age"></td>
+                    <td ng-bind="member.eyeColor"></td>
+                    <td ng-bind="member.name"></td>
+                    <td ng-bind="member.email"></td>
+                    <td>
+                        <div ng-repeat="friend in member.friends">{{friend.name}}
+                            <div class="animate-show" ng-show="ctrl.popoverIsVisible">
+                                ID:{{friend.id}} <br> AGE:{{friend.age}} <br> ECOLOR:{{friend.eyeColor}} <br> EMAIL:{{friend.email}} <br> ------------
+                            </div>
+                        </div>
+                        
+                    </td>
+                    </tbody>
+                </table>
+                <input type="button" value="Toggle friends' details" ng-click="ctrl.showPopover()">
+            </div>
+            <br> <br>
+            <a href='index.html'>Back</a>
+        </div>
+
+        <script>
+                    var app = angular.module('myApp', []);
+                    app.controller('myControl', ['$http', function ($http) {
+                            var self = this;
+                            self.greeting = "Hello from myControl, have a nice day!";
+                            self.baseurl = "http://localhost:8080/AngularJSProblem4ExamPrep1/api/member/";
+                            self.getAllMembers = function () {
+                                $http.get(self.baseurl + 'all').then(function (response) {
+                                    self.members = response.data;
+                                    console.log(response.data);
+                                }, function (error) {
+  //                                    self.error = error.msg;
+                                    console.log(error);
+                                });
+                            };
+                            self.showPopover = function () {
+                                if (!self.popoverIsVisible) {
+                                self.popoverIsVisible = true;
+                                } else {
+                                    self.popoverIsVisible = false;
+                                }
+                            };
+
+                            self.getAllMembers();
+                        }]);
+        </script>
+
+    </body>
+</html>

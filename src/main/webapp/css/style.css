@@ -1,0 +1,46 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-10-2016, 12:44:12
+    Author     : xboxm
+*/
+
+.table {
+    
+    border : 1px solid black;
+    
+}
+
+.thead {
+    
+    background-color: #4CAF50;
+    color: white;
+    
+}
+
+.tabletd {
+    
+    border : 1px solid grey;
+    
+}
+
+.tbody:nth-child(odd) {
+    background: lightblue;
+}
+
+.animate-show {
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+    opacity: 1;
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+    display: inline-block !important;
+}
+.animate-show.ng-hide {
+    opacity: 0;
+}

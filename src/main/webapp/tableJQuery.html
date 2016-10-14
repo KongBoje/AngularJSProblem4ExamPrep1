@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div>Add Your Table made with JQuery here</div>
+
+        <table class="table">
+            <thead class="thead">
+                <tr class="headtr">
+                    <td>ID</td>
+                    <td>Age</td>
+                    <td>Eye Color</td>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Friends</td>
+                </tr>
+            </thead>
+            <tbody class="tbody" id="person-tbody">
+
+            </tbody>
+        </table>
+
+        <a href='index.html'>Back</a>
+
+        <script>
+            $(document).ready(getAllMembers());
+            function getAllMembers() {
+                $.ajax({
+                    url: 'api/member/all',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function (res) {
+                        res.forEach(function (entry) {
+                            $('#person-tbody').append(
+                                    "<tr>" +
+                                    "<td class='tabletd'>" + entry.id + "</td>" +
+                                    "<td class='tabletd'>" + entry.age + "</td>" +
+                                    "<td class='tabletd'>" + entry.eyeColor + "</td>" +
+                                    "<td class='tabletd'>" + entry.name + "</td>" +
+                                    "<td class='tabletd'>" + entry.email + "</td>" +
+                                    "<td class='tabletd'>I couldn't do this step, so I forced all my members not to have any friends</td>" +
+                                    "<td><button class='del'>delete</button> / <button class='edit'>edit</button></td>" +
+                                    "</tr>"
+                                    );
+                        });
+                        editable();
+                    },
+                    error: function (error) {
+                        var json = JSON.parse(error.responseText);
+                        alert("0ops... I failed: " + json);
+                    }
+                });
+            }
+        </script>
+
+    </body>
+</html>
